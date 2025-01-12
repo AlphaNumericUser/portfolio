@@ -228,11 +228,6 @@ export const navLinks = [
           path: '/assets/react.svg',
         },
         {
-          id: 2,
-          name: 'TailwindCSS',
-          path: 'assets/tailwindcss.png',
-        },
-        {
           id: 3,
           name: 'Flutter',
           path: '/assets/logo-flutter.svg',
