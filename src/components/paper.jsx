@@ -46,7 +46,7 @@ const Paper = (props) => {
         scale={[0.01, 0.5, 0.01]}
         rotation={[Math.PI / 2, 0, 0]}
       >
-        <cylinderGeometry args={[1, 1, 1, 16]} />
+        <cylinderGeometry args={[1, 1, 1, 1]} />
         <meshBasicMaterial color="black" />
       </mesh>
     </group>
