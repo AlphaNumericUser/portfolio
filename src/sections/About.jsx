@@ -16,7 +16,6 @@ const About = () => {
 
     return (
         <section className="c-space my-20" id="about" >
-            {/* TODO: Aqui podría ser: xl:grid-cols-6 */}
             <div className="grid xl:grid-cols-3 l:grid-cols-6 md:grid-cols-2 grid-cols-1 gap-5 h-full" >
 
                 <div className="col-span-1 xl:col-span-1" >
