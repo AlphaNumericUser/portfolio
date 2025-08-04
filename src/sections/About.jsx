@@ -27,7 +27,7 @@ const About = () => {
                                 Hi, I&apos;m Alfredo
                             </p>
                             <p className="grid-subtext" >
-                                With 2 years of experience in the field of web development, I have worked with various technologies and frameworks. I am a self-taught developer who is passionate about learning new things and solving problems.
+                                With 3 years of experience in the field of web development, I have worked with various technologies and frameworks. I am a self-taught developer who is passionate about learning new things and solving problems.
                             </p>
                         </div>
                     </div>
