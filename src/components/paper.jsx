@@ -9,23 +9,12 @@ Title: Paper
 
 import { useGLTF, useTexture } from '@react-three/drei'
 import * as THREE from 'three'
-import { useRef } from 'react'
 
 const Paper = (props) => {
     
   const { nodes, materials } = useGLTF('/models/paper.glb')
   const texture = useTexture(props.texture ? props.texture : '/textures/project/images/udemy-flutter-1.jpg');
   texture.flipY = false;
-
-  // Referencia para la línea
-  const lineRef = useRef()
-
-  // Coordenadas de la línea (vertical, eje Y) - más larga
-  const linePoints = [
-    new THREE.Vector3(0, -0.3, 0), // Punto inferior más abajo
-    new THREE.Vector3(0, 0.3, 0),  // Punto superior más arriba
-  ]
-  const lineGeometry = new THREE.BufferGeometry().setFromPoints(linePoints)
 
   return (
     <group {...props} dispose={null}>
