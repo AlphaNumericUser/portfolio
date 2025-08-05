@@ -96,7 +96,7 @@ const Education = () => {
                             <p className="font-bold text-white-800">{currentCertification.title}</p>
                             <p className="text-sm mb-5">{currentCertification.institution} -- {currentCertification.date}</p>
                             <div className="mb-6">
-                              <h5 className="text-lg font-semibold mb-2 text-white">Lo que aprendí:</h5>
+                              <h5 className="text-lg font-semibold mb-2 text-white">What I learned:</h5>
                               <p>{currentCertification.summary}</p>
                             </div>
                           </div>
