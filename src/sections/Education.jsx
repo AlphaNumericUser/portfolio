@@ -1,6 +1,5 @@
 import { Canvas } from '@react-three/fiber'
 import { Suspense, useState, useRef } from "react";
-import { Center } from "@react-three/drei";
 import CanvasLoader from "../components/CanvasLoader";
 import { myCertifications } from '../constants';
 import Paper from '../components/paper';
@@ -40,37 +39,38 @@ const Education = () => {
                 <h3 className="head-text">My Education</h3>
                 <div className="education-container">
                     {/* Columna Izquierda: 3D Paper */}
-                    <div className="education-content flex items-center justify-center bg-black-200 border border-black-300 rounded-lg">
-                        <div  
-                            className="w-full h-[22rem]"
-                            onPointerDown={handlePointerDown}
-                            onPointerUp={handlePointerUp}
-                            onPointerLeave={handlePointerUp}
-                            onPointerMove={handlePointerMove}
-                            style={{ cursor: dragging.current ? 'grabbing' : 'grab' }}
+                    <div className="education-content flex items-center justify-center border bg-black-200 border-black-300 rounded-lg h-full">
+                      <div
+                        className="w-full h-full p-0 m-0 flex"
+                        onPointerDown={handlePointerDown}
+                        onPointerUp={handlePointerUp}
+                        onPointerLeave={handlePointerUp}
+                        onPointerMove={handlePointerMove}
+                        style={{ cursor: dragging.current ? 'grabbing' : 'grab' }}
+                      >
+                        <Canvas
+                            camera={{ position: [0, 0, 10] }}
+                            style={{ width: '100%', height: '100%' }}
                         >
-                            <Canvas camera={{ position: [0, 0, 5] }}>
-                                <ambientLight intensity={Math.PI} />
-                                <directionalLight position={[10, 10, 5]} />
-                                <InertiaController
-                                    dragging={dragging}
-                                    velocity={velocity}
-                                    setRotationZ={setRotationZ}
-                                    setVelocity={v => (velocity.current = v)}
-                                />
-                                <Center>
-                                    <Suspense fallback={<CanvasLoader />}>
-                                        <group
-                                            scale={7}
-                                            position={[0, 0, 0]} // <-- Centrado
-                                            rotation={[-Math.PI / 2, 0, 0]}
-                                        >
-                                            <Paper texture={currentCertification.texture} rotationZ={rotationZ} />
-                                        </group>
-                                    </Suspense>
-                                </Center>
-                            </Canvas>
-                        </div>
+                            <ambientLight intensity={Math.PI} />
+                            <directionalLight position={[10, 10, 5]} />
+                            <InertiaController
+                                dragging={dragging}
+                                velocity={velocity}
+                                setRotationZ={setRotationZ}
+                                setVelocity={v => (velocity.current = v)}
+                            />
+                            <Suspense fallback={<CanvasLoader />}>
+                                <group
+                                  scale={12}
+                                  position={[0, 0, 0]}
+                                  rotation={[-Math.PI / 2, 0, 0]}
+                                >
+                                  <Paper texture={currentCertification.texture} rotationZ={rotationZ} />
+                                </group>
+                            </Suspense>
+                        </Canvas>
+                      </div>
                     </div>
                     
                     {/* Columna Derecha: Info del certificado */}

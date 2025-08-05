@@ -331,7 +331,7 @@ export const navLinks = [
     {
       title: "React: De cero a experto ( Hooks y MERN )",
       institution: "DevTalles",
-      date: "15 de Agosto del 2023",
+      date: "24 de Noviembre del 2024",
       summary: "Aprendí a construir aplicaciones con React utilizando hooks, context y Redux. Implementé pruebas unitarias con Jest Testing Library. Desarrollé proyectos fullstack con MERN, autentificación con JWT y Google Sign-In, despliegues en producción y manejo de bases de datos como MongoDB y Firestore.",
       texture: "/textures/project/images/devtalles-react.jpg",
       logo: "/assets/devtalles-logo.png",

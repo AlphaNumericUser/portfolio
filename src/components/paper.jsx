@@ -30,14 +30,14 @@ const Paper = (props) => {
         <meshBasicMaterial map={texture} toneMapped={false} side={THREE.DoubleSide} />
       </mesh>
       {/* Línea gruesa en medio del papel usando un cilindro en el eje Z */}
-      <mesh
+      {/* <mesh
         position={[0, 0, 0]} // <-- Igual aquí, pon [0, 0, 0]
         scale={[0.01, 0.5, 0.01]}
         rotation={[Math.PI / 2, 0, 0]}
       >
         <cylinderGeometry args={[1, 1, 1, 16]} />
         <meshBasicMaterial color="black" />
-      </mesh>
+      </mesh> */}
     </group>
   )
 }
