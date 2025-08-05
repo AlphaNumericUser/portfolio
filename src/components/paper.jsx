@@ -34,19 +34,19 @@ const Paper = (props) => {
         receiveShadow
         geometry={nodes.Object_4.geometry}
         material={materials['Material.001']}
-        position={[-0.173, -0.274, 0.172]}
+        position={[0, 0, 0]} // <-- Cambia aquí a [0, 0, 0]
         scale={[0.279, 1, 0.216]}
-        rotation={[0, 0, props.rotationZ ?? 0]} // <-- Aplica la rotación sobre el eje Z
+        rotation={[0, 0, props.rotationZ ?? 0]}
       >
         <meshBasicMaterial map={texture} toneMapped={false} side={THREE.DoubleSide} />
       </mesh>
       {/* Línea gruesa en medio del papel usando un cilindro en el eje Z */}
       <mesh
-        position={[-0.173, -0.274, 0.172]}
+        position={[0, 0, 0]} // <-- Igual aquí, pon [0, 0, 0]
         scale={[0.01, 0.5, 0.01]}
         rotation={[Math.PI / 2, 0, 0]}
       >
-        <cylinderGeometry args={[1, 1, 1, 1]} />
+        <cylinderGeometry args={[1, 1, 1, 16]} />
         <meshBasicMaterial color="black" />
       </mesh>
     </group>
