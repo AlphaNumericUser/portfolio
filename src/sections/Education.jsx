@@ -4,11 +4,13 @@ import CanvasLoader from "../components/CanvasLoader";
 import { myCertifications } from '../constants';
 import Paper from '../components/paper';
 import { useFrame } from '@react-three/fiber'
+import { a, useSpring } from '@react-spring/three'
 import PropTypes from 'prop-types';
 
 const Education = () => {
     const [selectedCertificationIndex, setSelectedCertificationIndex] = useState(0);
     const [rotationZ, setRotationZ] = useState(0);
+    const [animationName, setAnimationName] = useState('entry');
     const dragging = useRef(false);
     const lastX = useRef(0);
     const velocity = useRef(0);
@@ -25,9 +27,19 @@ const Education = () => {
     const handlePointerMove = (e) => {
         if (dragging.current) {
             const deltaX = e.clientX - lastX.current;
-            setRotationZ((prev) => prev + deltaX * 0.01); // Ajusta la sensibilidad aquí
-            velocity.current = deltaX * 0.01; // Actualiza la velocidad
+            setRotationZ((prev) => prev + deltaX * 0.01);
+            velocity.current = deltaX * 0.01;
             lastX.current = e.clientX;
+        }
+    };
+
+    const handleCertificationChange = (newIndex) => {
+        if (newIndex !== selectedCertificationIndex) {
+            setAnimationName('exit');
+            setTimeout(() => {
+                setSelectedCertificationIndex(newIndex);
+                setAnimationName('entry');
+            }, 300);
         }
     };
 
@@ -61,13 +73,11 @@ const Education = () => {
                                 setVelocity={v => (velocity.current = v)}
                             />
                             <Suspense fallback={<CanvasLoader />}>
-                                <group
-                                  scale={12}
-                                  position={[0, 0, 0]}
-                                  rotation={[-Math.PI / 2, 0, 0]}
-                                >
-                                  <Paper texture={currentCertification.texture} rotationZ={rotationZ} />
-                                </group>
+                                <AnimatedPaperGroup
+                                    currentCertification={currentCertification}
+                                    rotationZ={rotationZ}
+                                    animationName={animationName}
+                                />
                             </Suspense>
                         </Canvas>
                       </div>
@@ -96,7 +106,7 @@ const Education = () => {
                           <button
                             className="arrow-btn"
                             onClick={() =>
-                              setSelectedCertificationIndex(
+                              handleCertificationChange(
                                 selectedCertificationIndex === 0
                                   ? myCertifications.length - 1
                                   : selectedCertificationIndex - 1
@@ -108,7 +118,7 @@ const Education = () => {
                           <button
                             className="arrow-btn"
                             onClick={() =>
-                              setSelectedCertificationIndex(
+                              handleCertificationChange(
                                 selectedCertificationIndex === myCertifications.length - 1
                                   ? 0
                                   : selectedCertificationIndex + 1
@@ -127,7 +137,7 @@ const Education = () => {
                     {myCertifications.map((_, index) => (
                         <button
                             key={index}
-                            onClick={() => setSelectedCertificationIndex(index)}
+                            onClick={() => handleCertificationChange(index)}
                             className={`w-3 h-3 rounded-full transition-colors ${
                                 index === selectedCertificationIndex 
                                     ? 'bg-white' 
@@ -141,11 +151,34 @@ const Education = () => {
     )
 }
 
+// Componente para manejar la animación del Paper
+function AnimatedPaperGroup({ currentCertification, rotationZ, animationName }) {
+    const { scale, opacity } = useSpring({
+        scale: animationName === 'entry' ? [22, 22, 22] : [0, 0, 0],
+        opacity: animationName === 'entry' ? 1 : 0,
+        config: {
+            tension: 120,
+            friction: 14,
+        },
+    });
+
+    return (
+        <a.group
+            scale={scale}
+            rotation={[-Math.PI / 2, 0, 0]}
+        >
+            <a.group opacity={opacity}>
+                <Paper texture={currentCertification.texture} rotationZ={rotationZ} />
+            </a.group>
+        </a.group>
+    );
+}
+
 function InertiaController({ dragging, velocity, setRotationZ, setVelocity }) {
     useFrame(() => {
         if (!dragging.current && Math.abs(velocity.current) > 0.0001) {
             setRotationZ(prev => prev + velocity.current);
-            velocity.current *= 0.95; // factor de frenado (ajusta para más o menos inercia)
+            velocity.current *= 0.95;
             setVelocity(velocity.current);
         }
     });
@@ -157,6 +190,12 @@ InertiaController.propTypes = {
     velocity: PropTypes.shape({ current: PropTypes.number }).isRequired,
     setRotationZ: PropTypes.func.isRequired,
     setVelocity: PropTypes.func.isRequired,
+};
+
+AnimatedPaperGroup.propTypes = {
+    currentCertification: PropTypes.object.isRequired,
+    rotationZ: PropTypes.number.isRequired,
+    animationName: PropTypes.string.isRequired,
 };
 
 export default Education
